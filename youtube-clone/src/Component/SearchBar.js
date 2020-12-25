@@ -1,12 +1,24 @@
 import React from 'react';
-
-class SearchBar extends React.Component{
-    state ={
-        searchText:''
+import { TextField, Paper } from '@material-ui/core';
+class SearchBar extends React.Component {
+    state = {
+        searchText: '',
     }
-    render(){
-        return(
-            <h1>Search Bar</h1>
+    handleChange = (event) => this.setState({ searchText: event.target.value });
+
+    handleSubmit = (event) => {
+        const { searchText } = this.state;
+        const { onFormSubmit } = this.props;
+        onFormSubmit(searchText);
+        event.preventDefault();
+    }
+    render() {
+        return (
+            <Paper elevation={6} style={{ padding: '25px' }}>
+                <form onSubmit={this.handleSubmit}>
+                    <TextField fullWidth label="Search..." onChange={this.handleChange} />
+                </form>
+            </Paper>
         );
     }
 }
